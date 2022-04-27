@@ -157,12 +157,15 @@ function App() {
 
     ws.current.onmessage = (e) => {
       let data = JSON.parse(e.data);
-      //console.log('data', data)
+
+      console.log('data', data)
       if (data.type !== "ticker") {
         return;
       }
+      //console.log('data.product_id 1', data.product_id)
 
       if (data.product_id === pair) {
+        //console.log('data.product_id 2', data.product_id)
         setprice(data.price);
         setbestask(data.best_ask)
         setbestbid(data.best_bid)
