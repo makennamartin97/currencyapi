@@ -11,7 +11,7 @@ export const formatData = (data) => {
           }
         ]
       };
-    
+    //(data || [])
       let dates = data.map((val) => {
         const ts = val[0];
         let date = new Date(ts * 1000);

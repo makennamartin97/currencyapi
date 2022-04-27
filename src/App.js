@@ -79,6 +79,10 @@ function App() {
       
       return;
     }
+    ws.onopen = () => {
+      // on connecting, do nothing but log it to the console
+      console.log('connected')
+      }
 
     
     let msg = {
@@ -160,8 +164,13 @@ function App() {
       }
       </div>
       <div className="">
-     
-      <Dashboard data={pastData} pair={pair} price={price} bestask={bestask} bestbid={bestbid} />
+      {/* {pastData ? (
+          <p>loading</p>
+        ) : (
+          <Dashboard data={pastData} pair={pair} price={price} bestask={bestask} bestbid={bestbid} />
+        )} */}
+       <Dashboard data={pastData} pair={pair} price={price} bestask={bestask} bestbid={bestbid} /><Dashboard data={pastData} pair={pair} price={price} bestask={bestask} bestbid={bestbid} />
+      
       </div>
 
     </div>
