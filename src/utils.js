@@ -4,7 +4,7 @@ export const formatData = (data) => {
         datasets: [
           {
             label: "Price",
-            data: [],
+            data: [{'lol':'24'}, {'idk': 'killme'}],
             backgroundColor: "rgb(46, 45, 190, 0.8)",
             borderColor: "rgb(46, 45, 190, 0.8)",
             fill: false

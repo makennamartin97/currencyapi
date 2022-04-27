@@ -21,14 +21,17 @@ function App() {
 
   //websocket reference to keep it consistent so it 
   //doesn't get recreated on everyv render
-  const [pastData, setpastData] = useState({});
+  const [pastData, setpastData] = useState({'obg':'24'});
+  //so it doesnt get recreated on every render
   const ws = useRef(null);
 
   let first = useRef(false);
   const url = "https://api.pro.coinbase.com";
 
   useEffect(() => {
+
     ws.current = new WebSocket("wss://ws-feed.pro.coinbase.com");
+    
     //empty array for currency pairs
     let pairs = [];
     //asynchronous api call
@@ -39,7 +42,7 @@ function App() {
         .then((res) => res.json())
         .then((data) => (pairs = data));
       //filter the pairs
-      let filtered = pairs.filter((pair) => {
+      let filtered = pairs.filter(pair => {
         
         // if (pair.quote_currency === "USD" && pair.base_currency === "BTC" || pair.quote_currency === "USD" && pair.base_currency === "ETH" || pair.quote_currency === "USD" && pair.base_currency === "LTC" || pair.quote_currency === "USD" && pair.base_currency === "BCH") {
         //   return pair;
@@ -67,11 +70,12 @@ function App() {
       
       setCurrencies(filtered);
       
-
+      //set true for next render
       first.current = true;
     };
 
     apiCall();
+    //empty array so every time state gets updated it wont rererun
   }, []);
 
   useEffect(() => {
