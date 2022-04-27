@@ -113,9 +113,12 @@ function App() {
         .then((data) => (dataArr = data));
 
       //console.log('data arr before formatted', dataArr)
-      
-      let formattedData = formatData(dataArr);
-      setpastData(formattedData);
+      if(dataArr){
+        let formattedData = formatData(dataArr);
+        setpastData(formattedData);
+      }
+      //let formattedData = formatData(dataArr);
+      //setpastData(formattedData);
     };
 
     fetchHistoricalData();
@@ -143,7 +146,10 @@ function App() {
       channels: ["ticker"]
     };
     let unsub = JSON.stringify(unsubMsg);
-    ws.current.send(unsub);
+    if(pair !== ''){
+      ws.current.send(unsub);
+    }
+    
     
   };
 
@@ -173,7 +179,7 @@ function App() {
         ) : (
           <Dashboard data={pastData} pair={pair} price={price} bestask={bestask} bestbid={bestbid} />
         )} */}
-       <Dashboard data={pastData} pair={pair} price={price} bestask={bestask} bestbid={bestbid} /><Dashboard data={pastData} pair={pair} price={price} bestask={bestask} bestbid={bestbid} />
+       <Dashboard data={pastData} pair={pair} price={price} bestask={bestask} bestbid={bestbid} />
       
       </div>
 
