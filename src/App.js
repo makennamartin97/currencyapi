@@ -47,7 +47,9 @@ function App() {
         // if (pair.quote_currency === "USD" && pair.base_currency === "BTC" || pair.quote_currency === "USD" && pair.base_currency === "ETH" || pair.quote_currency === "USD" && pair.base_currency === "LTC" || pair.quote_currency === "USD" && pair.base_currency === "BCH") {
         //   return pair;
         // }
-        return pair.quote_currency === "USD" && (pair.base_currency === "BTC" || pair.base_currency === "ETH" || pair.base_currency === "LTC" || pair.base_currency === "BCH")
+        console.log(pair)
+        return (pair.id === "BTC-USD" || pair.id === "BCH-USD" || pair.id === "ETH-USD" || pair.id === "LTC-USD" )
+        //return pair.quote_currency === "USD" && (pair.base_currency === "BTC" || pair.base_currency === "ETH" || pair.base_currency === "LTC" || pair.base_currency === "BCH")
           // if(pair.base_currency === "BTC" || pair.base_currency === "ETH" || pair.base_currency === "LTC" || pair.base_currency === "BCH" ){
           //   console.log('pair',pair)
           //   return pair
