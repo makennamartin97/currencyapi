@@ -162,7 +162,7 @@ function App() {
       <div className="container">
       {
         <select name="currency" value={pair} onChange={handleSelect} className="cselect">
-            <option value="">Currency Pairs</option>
+            <option value=""></option>
           {currencies.map((cur, idx) => {
             return (
               <option key={idx} value={cur.id}>

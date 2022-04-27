@@ -1,8 +1,9 @@
 
 import React from 'react';
-import { Chart as ChartJS, registerables } from 'chart.js';
+//import { Chart as ChartJS, registerables } from 'chart.js';
+import {Chart as ChartJS} from 'chart.js/auto'
 import { Line } from 'react-chartjs-2' 
-ChartJS.register(...registerables);
+//ChartJS.register(...registerables);
 
 
 
@@ -16,7 +17,7 @@ function Dashboard({ price, bestask, bestbid, pair, data}) {
     maintainAspectRatio: true
   };
   if (price === "0.00" || !pair) {
-    return <h2></h2>;
+    return <h2>Please select a currency pair</h2>;
   }
   return (
     <div className="dashboard">
