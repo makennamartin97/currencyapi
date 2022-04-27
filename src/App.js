@@ -124,12 +124,12 @@ function App() {
     //let historicalDataURL = `${url}/products/${pair}/ticker`;
     //let historicalDataURL = `${url}/products/${pair}/candles?granularity=86400`;
     let historicalDataURL;
-   if (pair === ""){
-     historicalDataURL = `${url}/products/BCH-USD/candles?granularity=86400`;
-   }
-   else {
+   if (pair){
      historicalDataURL = `${url}/products/${pair}/candles?granularity=86400`;
    }
+  //  else {
+  //    historicalDataURL = `${url}/products/BCH-USD/candles?granularity=86400`;
+  //  }
     // let historicalDataURL
     // if (pair.id === ""){
     //   historicalDataURL = `${url}/products/${pair.id}/candles?granularity=86400`;
