@@ -6,7 +6,7 @@ ChartJS.register(...registerables);
 
 
 
-function Dashboard({ props,price, bestask, bestbid, pair, data}) {
+function Dashboard({ price, bestask, bestbid, pair, data}) {
   const opts = {
     tooltips: {
       intersect: false,
@@ -15,7 +15,7 @@ function Dashboard({ props,price, bestask, bestbid, pair, data}) {
     responsive: true,
     maintainAspectRatio: true
   };
-  if (price === "0.00") {
+  if (price === "0.00" || !pair) {
     return <h2></h2>;
   }
   return (
@@ -42,7 +42,7 @@ function Dashboard({ props,price, bestask, bestbid, pair, data}) {
         </div>
       </div>
       <div className='chart'>
-        <Line data={data} options={opts} className="line" />
+        <Line data={data} options={opts} />
         </div>
     </div>
       

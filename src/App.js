@@ -54,7 +54,7 @@ function App() {
 
       });
       //sort it alphabetically
-      let sorted = filtered.sort((a, b) => {
+     filtered = filtered.sort((a, b) => {
         if (a.base_currency < b.base_currency) {
           return -1;
         }
@@ -65,7 +65,7 @@ function App() {
       });
 
       
-      setCurrencies(sorted);
+      setCurrencies(filtered);
       
 
       first.current = true;
@@ -97,14 +97,14 @@ function App() {
     //let idk  = requests.get('https://api.pro.coinbase.com/products/ADA-USD/ticker').json()
     //let historicalDataURL = `${url}/products/${pair}/ticker`;
     let historicalDataURL = `${url}/products/${pair}/candles?granularity=86400`;
-    console.log(historicalDataURL, 'historical data url')
+    //console.log(historicalDataURL, 'historical data url')
     const fetchHistoricalData = async () => {
       let dataArr = [];
       await fetch(historicalDataURL)
         .then((res) => res.json())
         .then((data) => (dataArr = data));
 
-      console.log('data arr before formatted', dataArr)
+      //console.log('data arr before formatted', dataArr)
       
       let formattedData = formatData(dataArr);
       setpastData(formattedData);
@@ -114,7 +114,7 @@ function App() {
 
     ws.current.onmessage = (e) => {
       let data = JSON.parse(e.data);
-      console.log('data', data)
+      //console.log('data', data)
       if (data.type !== "ticker") {
         return;
       }
@@ -125,19 +125,18 @@ function App() {
         setbestbid(data.best_bid)
       }
     };
-  }, [pair, bestask, bestbid]);
+  }, [pair]);
 
   const handleSelect = (e) => {
+    setpair(e.target.value);
     let unsubMsg = {
       type: "unsubscribe",
       product_ids: [pair],
       channels: ["ticker"]
     };
     let unsub = JSON.stringify(unsubMsg);
-
     ws.current.send(unsub);
-
-    setpair(e.target.value);
+    
   };
 
 
@@ -149,7 +148,7 @@ function App() {
       <div className="container">
       {
         <select name="currency" value={pair} onChange={handleSelect} className="cselect">
-            <option>Currency Pairs</option>
+            <option value="">Currency Pairs</option>
           {currencies.map((cur, idx) => {
             return (
               <option key={idx} value={cur.id}>
