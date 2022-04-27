@@ -8,7 +8,7 @@ function App() {
   //all available cryptocurrencies we can select
   const [currencies, setCurrencies] = useState([]);
   //current pair of cryptocurrencies we are looking at
-  const [pair, setpair] = useState("");
+  const [pair, setpair] = useState("BCH/USD");
 
   //values to display
   //price
@@ -21,7 +21,7 @@ function App() {
 
   //websocket reference to keep it consistent so it 
   //doesn't get recreated on everyv render
-  const [pastData, setpastData] = useState({'obg':'24'});
+  const [pastData, setpastData] = useState({});
   //so it doesnt get recreated on every render
   const ws = useRef(null);
 
@@ -106,14 +106,15 @@ function App() {
     //let historicalDataURL = `${url}/products/${pair}/ticker`;
     let historicalDataURL = `${url}/products/${pair}/candles?granularity=86400`;
     //console.log(historicalDataURL, 'historical data url')
+    let dataArr = [];
     const fetchHistoricalData = async () => {
-      let dataArr = [];
+      
       await fetch(historicalDataURL)
         .then((res) => res.json())
         .then((data) => (dataArr = data));
 
       //console.log('data arr before formatted', dataArr)
-      if(dataArr){
+      if(dataArr.length > 0){
         let formattedData = formatData(dataArr);
         setpastData(formattedData);
       }
