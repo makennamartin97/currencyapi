@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Chart as ChartJS, registerables } from 'chart.js';
 import { Line } from 'react-chartjs-2' 
@@ -5,7 +6,7 @@ ChartJS.register(...registerables);
 
 
 
-function Dashboard({ price, bestask, bestbid, pair, data}) {
+function Dashboard({ props,price, bestask, bestbid, pair, data}) {
   const opts = {
     tooltips: {
       intersect: false,
@@ -19,8 +20,6 @@ function Dashboard({ price, bestask, bestbid, pair, data}) {
   }
   return (
     <div className="dashboard">
-      {/* <h2>Currency Pair: {pair}</h2> */}
-      {/* <h2>Current Price: {`${price}`}</h2> */}
       <div className="row">
             
         <div className="box">

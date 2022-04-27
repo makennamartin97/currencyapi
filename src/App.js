@@ -125,7 +125,7 @@ function App() {
         setbestbid(data.best_bid)
       }
     };
-  }, [pair]);
+  }, [pair, bestask, bestbid]);
 
   const handleSelect = (e) => {
     let unsubMsg = {

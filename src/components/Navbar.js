@@ -6,7 +6,6 @@ function Navbar() {
   return (
     <div className="nav">
         <h3>Real Time Data Chart</h3>
-      
     </div>
   );
 }

@@ -25,7 +25,8 @@ export const formatData = (data) => {
     
       let priceArr = data.map((val) => {
         //console.log('val[4]',val[4])
-        return val[4];
+          return val[4];
+
       });
   
     
