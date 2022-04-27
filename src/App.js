@@ -8,7 +8,7 @@ function App() {
   //all available cryptocurrencies we can select
   const [currencies, setCurrencies] = useState([]);
   //current pair of cryptocurrencies we are looking at
-  const [pair, setpair] = useState("BCH/USD");
+  const [pair, setpair] = useState(null);
 
   //values to display
   //price
@@ -27,6 +27,21 @@ function App() {
 
   let first = useRef(false);
   const url = "https://api.pro.coinbase.com";
+  const handleSelect = (e) => {
+  
+    
+    let unsubMsg = {
+      type: "unsubscribe",
+      product_ids: [pair],
+      channels: ["ticker"]
+    };
+    let unsub = JSON.stringify(unsubMsg);
+    ws.current.send(unsub);
+    setpair(e.target.value);
+    console.log(pair)
+    
+    
+  };
 
   useEffect(() => {
 
@@ -47,7 +62,7 @@ function App() {
         // if (pair.quote_currency === "USD" && pair.base_currency === "BTC" || pair.quote_currency === "USD" && pair.base_currency === "ETH" || pair.quote_currency === "USD" && pair.base_currency === "LTC" || pair.quote_currency === "USD" && pair.base_currency === "BCH") {
         //   return pair;
         // }
-        console.log(pair)
+        //console.log(pair)
         return (pair.id === "BTC-USD" || pair.id === "BCH-USD" || pair.id === "ETH-USD" || pair.id === "LTC-USD" )
         //return pair.quote_currency === "USD" && (pair.base_currency === "BTC" || pair.base_currency === "ETH" || pair.base_currency === "LTC" || pair.base_currency === "BCH")
           // if(pair.base_currency === "BTC" || pair.base_currency === "ETH" || pair.base_currency === "LTC" || pair.base_currency === "BCH" ){
@@ -71,6 +86,7 @@ function App() {
 
       
       setCurrencies(filtered);
+      //console.log(currencies)
       
       //set true for next render
       first.current = true;
@@ -106,7 +122,21 @@ function App() {
     //https://api.exchange.coinbase.com/products/{product_id}/book
     //let idk  = requests.get('https://api.pro.coinbase.com/products/ADA-USD/ticker').json()
     //let historicalDataURL = `${url}/products/${pair}/ticker`;
-    let historicalDataURL = `${url}/products/${pair}/candles?granularity=86400`;
+    //let historicalDataURL = `${url}/products/${pair}/candles?granularity=86400`;
+    let historicalDataURL;
+   if (pair === ""){
+     historicalDataURL = `${url}/products/BCH-USD/candles?granularity=86400`;
+   }
+   else {
+     historicalDataURL = `${url}/products/${pair}/candles?granularity=86400`;
+   }
+    // let historicalDataURL
+    // if (pair.id === ""){
+    //   historicalDataURL = `${url}/products/${pair.id}/candles?granularity=86400`;
+    // }
+    // else {
+    //   historicalDataURL = `${url}/products/${pair.id}/candles?granularity=86400`;
+    // }
     //console.log(historicalDataURL, 'historical data url')
     let dataArr = [];
     const fetchHistoricalData = async () => {
@@ -116,10 +146,9 @@ function App() {
         .then((data) => (dataArr = data));
 
       //console.log('data arr before formatted', dataArr)
-      if(dataArr.length > 0){
-        let formattedData = formatData(dataArr);
-        setpastData(formattedData);
-      }
+      let formattedData = formatData(dataArr);
+      setpastData(formattedData);
+      
       //let formattedData = formatData(dataArr);
       //setpastData(formattedData);
     };
@@ -141,20 +170,7 @@ function App() {
     };
   }, [pair]);
 
-  const handleSelect = (e) => {
-    setpair(e.target.value);
-    let unsubMsg = {
-      type: "unsubscribe",
-      product_ids: [pair],
-      channels: ["ticker"]
-    };
-    let unsub = JSON.stringify(unsubMsg);
-    if(pair !== ''){
-      ws.current.send(unsub);
-    }
-    
-    
-  };
+
 
 
 
