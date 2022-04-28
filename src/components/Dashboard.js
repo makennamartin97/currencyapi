@@ -21,31 +21,34 @@ function Dashboard({ data, price, bestask, bestbid}) {
   }
   return (
     <div className="dashboard">
-      
+
       <div className='chart'>
-      <div className="row">
-            
+
+        <div className="row">
+
             <div className="box">
                 <div className="header">
-                <h2>Best Ask</h2>
+                    <h2>Best Ask</h2>
                 </div>
                 <div className="bottom">
-                <h2>{`${bestask}`}</h2>
+                    <h2>{`${bestask}`}</h2>
                 </div>
-    
             </div>
+
             <div className="box">
                 <div className="header">
-                <h2>Best Bid</h2>
+                    <h2>Best Bid</h2>
                 </div>
                 <div className="bottom">
-                <h2>{`${bestbid}`}</h2>
+                    <h2>{`${bestbid}`}</h2>
                 </div>
-    
             </div>
-          </div>
-        <Line data={data} options={opts} />
+
         </div>
+
+        <Line data={data} options={opts} />
+        
+     </div>
         
     </div>
       
