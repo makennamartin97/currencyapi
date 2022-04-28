@@ -16,12 +16,12 @@ function Dashboard({ price, bestask, bestbid, pair, data}) {
     responsive: true,
     maintainAspectRatio: true
   };
-  if (price === "0.00" || !pair) {
+  if (price === "0.00" || pair === '') {
     return <h2>Please select a currency pair</h2>;
   }
   return (
     <div className="dashboard">
-      <div className="row">
+      {/* <div className="row">
             
         <div className="box">
             <div className="header">
@@ -41,7 +41,7 @@ function Dashboard({ price, bestask, bestbid, pair, data}) {
             </div>
 
         </div>
-      </div>
+      </div> */}
       <div className='chart'>
         <Line data={data} options={opts} />
         </div>

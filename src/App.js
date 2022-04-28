@@ -29,6 +29,8 @@ function App() {
 
   useEffect(() => {
     ws.current = new WebSocket("wss://ws-feed.pro.coinbase.com");
+    ws.current.onopen = () => console.log("ws opened");
+    ws.current.onclose = () => console.log("ws closed");
     //empty array for currency pairs
     let pairs = [];
     //asynchronous api call
@@ -69,9 +71,15 @@ function App() {
       
 
       first.current = true;
+
     };
 
     apiCall();
+//ws.current.close()
+// return () => {
+//   ws.current.close()
+// }
+
   }, []);
 
   useEffect(() => {
@@ -104,9 +112,10 @@ function App() {
     else {
       historicalDataURL = `${url}/products/${pair}/candles?granularity=86400`;
     }
+  let dataArr = [];
     //console.log(historicalDataURL, 'historical data url')
     const fetchHistoricalData = async () => {
-      let dataArr = [];
+      
       await fetch(historicalDataURL)
         .then((res) => res.json())
         .then((data) => (dataArr = data));
@@ -123,7 +132,7 @@ function App() {
       let data = JSON.parse(e.data);
       //console.log('data', data)
       if (data.type !== "ticker") {
-        return;   
+        return
       }
 
       if (data.product_id === pair) {
@@ -131,11 +140,12 @@ function App() {
         setbestask(data.best_ask)
         setbestbid(data.best_bid)
       }
+  
     };
   }, [pair]);
 
   const handleSelect = (e) => {
-    setpair(e.target.value);
+      setpair(e.target.value);
     let unsubMsg = {
       type: "unsubscribe",
       product_ids: [pair],
@@ -145,6 +155,7 @@ function App() {
     ws.current.send(unsub);
     
   };
+
 
 
 
@@ -166,9 +177,31 @@ function App() {
         </select>
       }
       </div>
-      <div className="">
+<div className="dashboard">
+      <div className="row">
+            
+        <div className="box">
+            <div className="header">
+            <h2>Best Ask</h2>
+            </div>
+            <div className="bottom">
+            <h2>{`${bestask}`}</h2>
+            </div>
+
+        </div>
+        <div className="box">
+            <div className="header">
+            <h2>Best Bid</h2>
+            </div>
+            <div className="bottom">
+            <h2>{`${bestbid}`}</h2>
+            </div>
+
+        </div>
+      </div>
+     
+        <Dashboard data={pastData} pair={pair} price={price} bestask={bestask} best_bid={bestbid}/>
      
-      <Dashboard data={pastData} pair={pair} price={price} bestask={bestask} bestbid={bestbid} />
       </div>
 
     </div>
