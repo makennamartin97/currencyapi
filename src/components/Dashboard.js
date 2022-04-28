@@ -7,7 +7,7 @@ import { Line } from 'react-chartjs-2'
 
 
 
-function Dashboard({ price, bestask, bestbid, pair, data}) {
+function Dashboard({ pair,data, price}) {
   const opts = {
     tooltips: {
       intersect: false,
@@ -21,27 +21,7 @@ function Dashboard({ price, bestask, bestbid, pair, data}) {
   }
   return (
     <div className="dashboard">
-      <div className="row">
-            
-            <div className="box">
-                <div className="header">
-                <h2>Best Ask</h2>
-                </div>
-                <div className="bottom">
-                <h2>{`${bestask}`}</h2>
-                </div>
-    
-            </div>
-            <div className="box">
-                <div className="header">
-                <h2>Best Bid</h2>
-                </div>
-                <div className="bottom">
-                <h2>{`${bestbid}`}</h2>
-                </div>
-    
-            </div>
-          </div>
+      
       <div className='chart'>
         <Line data={data} options={opts} />
         </div>

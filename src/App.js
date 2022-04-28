@@ -191,8 +191,30 @@ function App() {
       }
       </div>
       <div className="">
+      <div className="row">
+            
+            <div className="box">
+                <div className="header">
+                <h2>Best Ask</h2>
+                </div>
+                <div className="bottom">
+                <h2>{`${bestask}`}</h2>
+                </div>
+    
+            </div>
+            <div className="box">
+                <div className="header">
+                <h2>Best Bid</h2>
+                </div>
+                <div className="bottom">
+                <h2>{`${bestbid}`}</h2>
+                </div>
+    
+            </div>
+          </div>
      
-      <Dashboard data={pastData} pair={pair} price={price} bestask={bestask} bestbid={bestbid} />
+      <Dashboard data={pastData} pair={pair}price={price}/>
+      
       </div>
 
     </div>
