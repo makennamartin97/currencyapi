@@ -123,12 +123,22 @@ function App() {
       // }
       await fetch(historicalDataURL)
         .then((res) => res.json())
-        .then((data) => (dataArr = data));
+        // .then((data) => (dataArr = data));
+        .then(data => {
+          dataArr = data
+        
+        })
+        .catch(exception => {
+          console.log(exception);
+          //this.setState({...this.state, isFetching: false});
+        });
+        let formattedData = formatData(dataArr);
+          setpastData(formattedData);
 
       //console.log('data arr before formatted', dataArr)
       
-      let formattedData = formatData(dataArr);
-      setpastData(formattedData);
+      // let formattedData = formatData(dataArr);
+      // setpastData(formattedData);
     };
 
     fetchHistoricalData();
