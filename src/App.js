@@ -8,7 +8,7 @@ function App() {
   //all available cryptocurrencies we can select
   const [currencies, setCurrencies] = useState([]);
   //current pair of cryptocurrencies we are looking at
-  const [pair, setpair] = useState(null);
+  const [pair, setpair] = useState('');
 
   //values to display
   //price
@@ -27,8 +27,9 @@ function App() {
 
   let first = useRef(false);
   const url = "https://api.pro.coinbase.com";
+
   const handleSelect = (e) => {
-  
+    setpair(e.target.value);
     
     let unsubMsg = {
       type: "unsubscribe",
@@ -37,11 +38,12 @@ function App() {
     };
     let unsub = JSON.stringify(unsubMsg);
     ws.current.send(unsub);
-    setpair(e.target.value);
+    
     console.log(pair)
     
     
   };
+
 
   useEffect(() => {
 
@@ -193,6 +195,7 @@ function App() {
             );
           })}
         </select>
+        
       }
       </div>
       <div className="">
