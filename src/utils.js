@@ -14,6 +14,7 @@ export const formatData = (data) => {
     //(data || [])
       let dates = data.map((val) => {
         const ts = val[0];
+        //console.log('ts', ts)
         let date = new Date(ts * 1000);
         let day = date.getDate();
         let month = date.getMonth() + 1;
