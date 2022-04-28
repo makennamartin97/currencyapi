@@ -7,7 +7,7 @@ import { Line } from 'react-chartjs-2'
 
 
 
-function Dashboard({ pair,data, price}) {
+function Dashboard({ data, price}) {
   const opts = {
     tooltips: {
       intersect: false,
@@ -16,7 +16,7 @@ function Dashboard({ pair,data, price}) {
     responsive: true,
     maintainAspectRatio: true
   };
-  if (price === "0.00" || pair === '') {
+  if (price === "0.00" ) {
     return <h2>Please select a currency pair</h2>;
   }
   return (

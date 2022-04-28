@@ -28,10 +28,11 @@ function App() {
   const url = "https://api.pro.coinbase.com";
 
   useEffect(() => {
-    ws.current = new WebSocket("wss://ws-feed.pro.coinbase.com");
-    ws.current.onopen = () => console.log("ws opened");
-    ws.current.onclose = () => console.log("ws closed");
-    const wsCurrent = ws.current;
+    //const wsCurrent = ws.current;
+    ws.current = new WebSocket("wss://ws-feed.pro.coinbase.com/");
+    // ws.current.onopen = () => console.log("ws opened");
+    // ws.current.onclose = () => console.log("ws closed");
+    //const wsCurrent = ws.current;
     //empty array for currency pairs
     let pairs = [];
     //asynchronous api call
@@ -77,9 +78,9 @@ function App() {
     };
 
     apiCall();
-    return () => {
-      wsCurrent.close();
-  };
+  //   return () => {
+  //     wsCurrent.close();
+  // };
   }, []);
 
   useEffect(() => {
@@ -128,11 +129,12 @@ function App() {
           dataArr = data
         
         })
-        .catch(exception => {
-          console.log(exception);
+        .catch(message=> {
+          console.log(message.error);
           //this.setState({...this.state, isFetching: false});
         });
         let formattedData = formatData(dataArr);
+        //console.log('formatteddata', formattedData)
           setpastData(formattedData);
 
       //console.log('data arr before formatted', dataArr)
@@ -152,14 +154,24 @@ function App() {
 
       if (data.product_id === pair) {
         setprice(data.price);
+        // setbestask(data.best_ask)
+        // setbestbid(data.best_bid)
+      }
+      if (data.product_id === pair) {
         setbestask(data.best_ask)
+        // setbestask(data.best_ask)
+        // setbestbid(data.best_bid)
+      }
+      if (data.product_id === pair) {
         setbestbid(data.best_bid)
+        // setbestask(data.best_ask)
+        // setbestbid(data.best_bid)
       }
     };
   }, [pair]);
 
   const handleSelect = (e) => {
-    setpair(e.target.value);
+    
     let unsubMsg = {
       type: "unsubscribe",
       product_ids: [pair],
@@ -167,6 +179,7 @@ function App() {
     };
     let unsub = JSON.stringify(unsubMsg);
     ws.current.send(unsub);
+    setpair(e.target.value);
     
   };
 
@@ -213,7 +226,7 @@ function App() {
             </div>
           </div>
      
-      <Dashboard data={pastData} pair={pair}price={price}/>
+      <Dashboard data={pastData} price={price}/>
       
       </div>
 
