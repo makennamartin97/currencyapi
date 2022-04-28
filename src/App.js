@@ -29,6 +29,9 @@ function App() {
 
   useEffect(() => {
     ws.current = new WebSocket("wss://ws-feed.pro.coinbase.com");
+    ws.current.onopen = () => console.log("ws opened");
+    ws.current.onclose = () => console.log("ws closed");
+    const wsCurrent = ws.current;
     //empty array for currency pairs
     let pairs = [];
     //asynchronous api call
@@ -74,6 +77,9 @@ function App() {
     };
 
     apiCall();
+    return () => {
+      wsCurrent.close();
+  };
   }, []);
 
   useEffect(() => {
@@ -109,6 +115,12 @@ function App() {
     //console.log(historicalDataURL, 'historical data url')
     const fetchHistoricalData = async () => {
       let dataArr = [];
+      // try{
+      //   const result = await fetch(historicalDataURL)
+      //   console.log(result)
+      // } catch(error) {
+      //     console.log(error.message);
+      // }
       await fetch(historicalDataURL)
         .then((res) => res.json())
         .then((data) => (dataArr = data));

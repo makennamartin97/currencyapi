@@ -4,7 +4,7 @@ export const formatData = (data) => {
         datasets: [
           {
             label: "Price",
-            data: [],
+            data: [{"idk": "fjuck j"},{"lol":"no"}],
             backgroundColor: "rgb(46, 45, 190, 0.8)",
             borderColor: "rgb(46, 45, 190, 0.8)",
             fill: false
@@ -12,7 +12,7 @@ export const formatData = (data) => {
         ]
       };
     //(data || [])
-      let dates = data.map((val) => {
+      let dates = (data || []).map((val) => {
         const ts = val[0];
         //console.log('ts', ts)
         let date = new Date(ts * 1000);
@@ -24,7 +24,7 @@ export const formatData = (data) => {
         return final;
       });
     
-      let priceArr = data.map((val) => {
+      let priceArr = (data || []).map((val) => {
         //console.log('val[4]',val[4])
           return val[4];
 
