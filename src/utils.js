@@ -12,7 +12,7 @@ export const formatData = (data) => {
         ]
       };
     //(data || [])
-      let dates = (data || []).map((val) => {
+      let dates = data.map((val) => {
         const ts = val[0];
         //console.log('ts', ts)
         let date = new Date(ts * 1000);
