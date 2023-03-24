@@ -117,13 +117,13 @@ function App() {
 
     const handleSelect = (e) => {
       setpair(e.target.value);
-      let unsubMsg = {
-        type: "unsubscribe",
-        product_ids: [pair],
-        channels: ["ticker"]
-      };
-      let unsub = JSON.stringify(unsubMsg);
-      ws.current.send(unsub);
+  //     let unsubMsg = {
+  //       type: "unsubscribe",
+  //       product_ids: [pair],
+  //       channels: ["ticker"]
+  //     };
+  //     let unsub = JSON.stringify(unsubMsg);
+  //     ws.current.send(unsub);
       
     };
 
@@ -147,7 +147,7 @@ function App() {
         }
         </div>
         <div className="data">
-    {pair != "" ? 
+    {pair !== "" ? 
   ( <Dashboard data={pastData} pair={pair} price={price} bestask={bestask} bestbid={bestbid} />):(
     <h2>Select a currency pair above</h2>
   )
